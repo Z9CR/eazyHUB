@@ -3,7 +3,7 @@
 // 返回字符串数组，包含模块名称
 
 // 外部实现了函数 getModule_xxx()
-// 返回一个div块
+// 返回一个能转div块的string
 
 // 通过modName读入模块的div
 // modName为字符串
