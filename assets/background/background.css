@@ -1,0 +1,7 @@
+#background {
+    background-image: linear-gradient(155deg, #7085B6 0%, #87A7D9 50%, #DEF3F8 100%);
+    position: absolute;
+    z-index: -1024;
+    width: 100vw;
+    height: 100vh;
+}

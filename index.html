@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            /* 去掉默认边距 避免滚动条*/
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <title>EazyHUB</title>
+        <!--添加模块xxx需要引入 assets/xxx/xxx.css, eg:
+        <link rel="stylesheet" type="text/css" href="./assets/xxx/xxx.css">
+        -->
+        <link rel="stylesheet" type="text/css" href="assets/background/background.css">
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <!--所有的id="xxx"的块都会被替换为assets/xxx/xxx.html的属性-->
+            <!--（xxx.html包括<div id="xxx">和</div>）-->
+            <div id="background"></div>
+        </main>
+        <footer></footer>
+    </body>
+</html>
