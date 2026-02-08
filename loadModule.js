@@ -4,7 +4,7 @@ async function readModsInfo() {
     console.log('正在读取模块配置...');
     try{
         // 读入文件
-        const response = await fetch('./assets/modules.txt');
+        const response = await fetch('./modules.txt');
         // 获取文本
         const fileContent = await response.text();
         // 按行分割
@@ -25,9 +25,10 @@ async function readModsInfo() {
         console.log('找到模块:', modules);
         return modules;
     } catch(err) {
+        console.warn('当前路径为', window.location.href);
         throw '读入模块异常';
     };
-    return null;
+    return [];
 }
 
 // 通过modName读入模块的div
@@ -38,7 +39,7 @@ async function readModule(modName) {
     }
     else {
         // 读取文件
-        const response = await fetch(`./assets/${modName}/${modName}.html`);
+        const response = await fetch(`./${modName}.html`);
         const html = await response.text();
         // 解析
         const tmpDiv = document.createElement('div');
@@ -50,7 +51,7 @@ async function readModule(modName) {
     }
 }
 
-// 将./index.html中的id = "xxx"的<div>替换为 ./assets/xxx/xxx.html中的<div>
+// 将./index.html中的id = "xxx"的<div>替换为 ./xxx.html中的<div>
 // mod应该是一个DOM
 // id为string
 function loadModule(mod, id) {
@@ -69,10 +70,11 @@ function loadModule(mod, id) {
 // 主程序
 (async function() {
     const modsNames = await readModsInfo();
-    for(modName in modsNames) {
-        const currentMod = readModule(modName);
+    for(let modName of modsNames) {
+        const currentMod = await readModule(modName);
         // 替换为模块中的div
         // $modName 就是 id
         loadModule(currentMod, modName);
     }
 })();
+
