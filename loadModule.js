@@ -1,53 +1,46 @@
 "use strict"
-// 读入./assets/modules.txt配置文件 
-async function readModsInfo() {
-    console.log('正在读取模块配置...');
-    try{
-        // 读入文件
-        const response = await fetch('./modules.txt');
-        // 获取文本
-        const fileContent = await response.text();
-        // 按行分割
-        const lines = fileContent.split('\n');
-        const modules = [];
-        // 逐行处理
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
-            // 遇到 END_OF_FILE 停止
-            if (line === 'END_OF_FILE') {
-                break;
-            }
-            // 跳过空行
-            if (line.length > 0) {
-                modules.push(line);
-            }
-        }
-        console.log('找到模块:', modules);
-        return modules;
-    } catch(err) {
-        console.warn('当前路径为', window.location.href);
-        throw '读入模块异常';
-    };
-    return [];
-}
+// 外部实现了函数 getConfig()
+// 返回字符串数组，包含模块名称
+
+// 外部实现了函数 getModule_xxx()
+// 返回一个div块
 
 // 通过modName读入模块的div
 // modName为字符串
 async function readModule(modName) {
-    if(typeof modName != 'string') {
-        throw 'readModule 应该传入 string'
+    if (typeof modName !== 'string') {
+        throw new Error('readModule 应该传入 string');
     }
-    else {
-        // 读取文件
-        const response = await fetch(`./${modName}.html`);
-        const html = await response.text();
-        // 解析
-        const tmpDiv = document.createElement('div');
-        tmpDiv.innerHTML = html.trim();
-        const ret = tmpDiv.firstElementChild;
-        console.log("modInReading: ");
-        console.log(ret);
-        return ret;
+    
+    try {
+        // 获取HTML字符串
+        const funcName = 'getModule_' + modName;
+        if (typeof window[funcName] !== 'function') {
+            throw new Error(`函数 ${funcName} 未定义`);
+        }
+        const htmlString = window[funcName]();
+        if (typeof htmlString !== 'string') {
+            throw new Error(`函数 ${funcName} 应该返回字符串`);
+        }
+        // 转换为DOM元素
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString.trim();
+        // 获取第一个元素（应该是div）
+        const moduleDiv = tempDiv.firstElementChild;
+        if (!moduleDiv) {
+            throw new Error(`模块 ${modName} 返回的HTML无效`);
+        }
+        console.log(`模块 ${modName} 加载成功:`, moduleDiv);
+        return moduleDiv;
+    } catch (err) {
+        console.error(`读取模块 ${modName} 失败:`, err);
+        // 返回错误占位符
+        const errorDiv = document.createElement('div');
+        errorDiv.id = modName;
+        errorDiv.innerHTML = `<div style="color:red;padding:10px;border:1px solid red;">
+            模块加载失败: ${modName}<br>${err.message}
+        </div>`;
+        return errorDiv;
     }
 }
 
@@ -69,12 +62,16 @@ function loadModule(mod, id) {
 
 // 主程序
 (async function() {
-    const modsNames = await readModsInfo();
+    const modsNames = getConfig();
+    console.log("模块列表: ", modsNames);
     for(let modName of modsNames) {
         const currentMod = await readModule(modName);
-        // 替换为模块中的div
-        // $modName 就是 id
-        loadModule(currentMod, modName);
+        const success = loadModule(currentMod, modName);
+        if (success) {
+            console.log(`${modName} 加载成功`);
+        }
+        else {
+            console.error(`${modName} 加载失败`);
+        }
     }
 })();
-
