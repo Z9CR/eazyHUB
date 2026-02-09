@@ -1,5 +1,4 @@
 function getModule_background() {
     return `<div id="background">
-        <span>THE TEXT JUST FOR TEST, IF YOU SEE IT, DEL IT</span>
     </div>`;
 }
