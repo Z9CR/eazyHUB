@@ -10,6 +10,16 @@
                 width: 100%;
                 height: 100%;
             }
+            /* 将所有组件至于flex布局的画布中 */
+            #widgetFrame {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+            }
         </style>
         <title>EazyHUB</title>
         <!--添加模块xxx需要引入 ./xxx.css, eg:
@@ -17,16 +27,18 @@
         -->
         <link rel="stylesheet" type="text/css" href="./plugins/background.css">
         <link rel="stylesheet" type="text/css" href="./plugins/searchBar.css">
+        <link rel="stylesheet" type="text/css" href="./plugins/tuxsay.css">
     </head>
     <body>
-        <header></header>
         <main>
             <!--所有的id="xxx"的块都会被替换为./plugins/xxx.js的属性-->
             <!--（xxx.html包括<div id="xxx">和</div>）-->
-            <div id="background"></div>
-            <div id="searchBar"></div>
+            <div id="widgetFrame">
+                <div id="background"></div>
+                <div id="tuxsay"></div>
+                <div id="searchBar"></div>
+            </div>
         </main>
-        <footer></footer>
         <script src="./moduleLoadList.js"></script>
         <!--在下面加载你的模块, 不要忘记加css-->
         <!--
@@ -34,6 +46,7 @@
         -->
         <script src="./plugins/background.js"></script>
         <script src="./plugins/searchBar.js"></script>
+        <script src="./plugins/tuxsay.js"></script>
         <!--确保./loadModule.js在最后-->
         <script src="./loadModule.js"></script>
     </body>

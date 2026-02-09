@@ -1,0 +1,24 @@
+#tuxsay {
+    width: 40%;
+    height: 25%;
+    z-index: 0;
+    margin: auto;
+    align-items: center;      /* 垂直居中 */
+    justify-content: center;  /* 水平居中 */
+}
+#_tuxsay_mascot {
+    max-width: 15%;
+    max-height: 20%;
+    width: auto;
+    height: auto;
+    margin-left: 15px;
+    margin-top: 40px;
+    display: inline-block;
+}
+#_tuxsay_quote {
+    font: italic small-caps bold 16px/2 cursive;
+    width: 50%;
+    height: 20%;
+    margin-right: 2.8%;
+    display: inline-block;
+}

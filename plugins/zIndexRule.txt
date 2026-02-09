@@ -1,0 +1,8 @@
+Background layer:
+    -1024
+normal widget:
+    0
+special widget:
+    1024
+pined widget:
+    2048
