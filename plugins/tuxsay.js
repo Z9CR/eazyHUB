@@ -88,7 +88,6 @@ function tuxsay_getRandomQuote() {
 function tuxsay_getRandomMascotPath() {
     // 把新的吉祥物添加到下面
     let mascotPaths = [
-        './assets/tuxsay/mascots/128px-Mascot_konqi.png',
         './assets/tuxsay/mascots/Tux.png',
         './assets/tuxsay/mascots/Crystal_128_penguin.png',
         './assets/tuxsay/mascots/Daemon-phk.png'
