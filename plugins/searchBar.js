@@ -4,7 +4,7 @@ function getModule_searchBar() {
         <input type="text" 
                placeholder="🔍︎      此处搜索"
                style="
-                   width: 500px;
+                   width: 45vw;
                    padding: 12px 20px;
                    border: 2px solid #4285f4;
                    border-radius: 25px;

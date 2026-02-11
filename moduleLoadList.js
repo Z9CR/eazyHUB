@@ -3,6 +3,6 @@ function getConfig() {
     return [
         'background',
         'searchBar',
-        'tuxsay'
+        'tuxsay',
     ];
 }
